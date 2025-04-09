@@ -1,0 +1,46 @@
+# Build artifacts
+bin/
+obj/
+[Bb]uild/
+[Bb]uilds/
+*.exe
+*.dll
+*.pdb
+*.cache
+*.log
+
+# MonoGame content pipeline output
+*.xnb
+*.mgcb.cache
+*.mgcontent
+
+# User-specific files
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# MonoDevelop and VS Code
+.vscode/
+*.csproj.user
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Backup and temporary files
+*.bak
+*.tmp
+*.swp
+*.~*
+
+# NuGet packages
+packages/
+*.nupkg
+project.lock.json
+project.assets.json
+
+# Dotnet artifacts
+*.deps.json
+*.runtimeconfig.json
+*.runtimeconfig.dev.json
