@@ -1,2 +1,2 @@
-﻿using var game = new monogame_rotoplanet.Game1();
+﻿using var game = new monogame_rotoplanet.RotoPlanet();
 game.Run();

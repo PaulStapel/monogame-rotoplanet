@@ -10,10 +10,12 @@ obj/
 *.cache
 *.log
 
+
 # MonoGame content pipeline output
 *.xnb
 *.mgcb.cache
 *.mgcontent
+*.mgstats
 
 # User-specific files
 *.user
