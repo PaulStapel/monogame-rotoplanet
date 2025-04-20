@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace monogame_rotoplanet;
+namespace MonogameRotoplanet;
 
 public class RotoPlanet : Game
 {
@@ -21,7 +21,6 @@ public class RotoPlanet : Game
 
     protected override void Initialize()
     {
-        // TODO: Add your initialization logic here
         ballPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2,
                             _graphics.PreferredBackBufferHeight / 2);
         ballSpeed = 500f;
@@ -35,7 +34,6 @@ public class RotoPlanet : Game
 
         ballTexture = Content.Load<Texture2D>("images/ball");
 
-        // TODO: use this.Content to load your game content here
     }
 
     protected override void Update(GameTime gameTime)
@@ -44,7 +42,6 @@ public class RotoPlanet : Game
                              Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
-        // TODO: Add your update logic here
 
         // The time since Update was called last.
         float updatedBallSpeed = ballSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -96,7 +93,6 @@ public class RotoPlanet : Game
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        // TODO: Add your drawing code here
         _spriteBatch.Begin();
         _spriteBatch.Draw(
             ballTexture,
