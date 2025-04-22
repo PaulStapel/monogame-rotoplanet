@@ -1,6 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.ComponentModel.Design.Serialization;
+using System.Data;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonogameRotoplanet.Systems.Input;
 
 namespace MonogameRotoplanet;
 
@@ -11,6 +14,7 @@ public class RotoPlanet : Game
     Texture2D ballTexture;
     Vector2 ballPosition;
     float ballSpeed;
+    GameState state;
 
     public RotoPlanet()
     {
@@ -24,8 +28,11 @@ public class RotoPlanet : Game
         ballPosition = new Vector2(_graphics.PreferredBackBufferWidth / 2,
                             _graphics.PreferredBackBufferHeight / 2);
         ballSpeed = 500f;
+        state = GameState.Gameplay;
 
-        base.Initialize();
+        InputManager.Init(new InputConfig());
+
+        base.Initialize(); 
     }
 
     protected override void LoadContent()
@@ -42,32 +49,32 @@ public class RotoPlanet : Game
                              Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
 
+        InputManager.Update();
 
         // The time since Update was called last.
         float updatedBallSpeed = ballSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-        var kstate = Keyboard.GetState();
         
-        if (kstate.IsKeyDown(Keys.Up))
+        if (InputManager.IsKeyDown(state, InputAction.MoveUp))
         {
             ballPosition.Y -= updatedBallSpeed;
         }
         
-        if (kstate.IsKeyDown(Keys.Down))
+        if (InputManager.IsKeyDown(state, InputAction.MoveDown))
         {
             ballPosition.Y += updatedBallSpeed;
         }
         
-        if (kstate.IsKeyDown(Keys.Left))
+        if (InputManager.IsKeyDown(state, InputAction.MoveLeft))
         {
             ballPosition.X -= updatedBallSpeed;
         }
         
-        if (kstate.IsKeyDown(Keys.Right))
+        if (InputManager.IsKeyDown(state, InputAction.MoveRight))
         {
             ballPosition.X += updatedBallSpeed;
         }
 
+        // Boundary code
         if (ballPosition.X > _graphics.PreferredBackBufferWidth - ballTexture.Width / 2)
         {
             ballPosition.X = _graphics.PreferredBackBufferWidth - ballTexture.Width / 2;

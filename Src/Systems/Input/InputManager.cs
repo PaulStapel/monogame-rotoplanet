@@ -5,18 +5,18 @@ using System.Linq;
 
 namespace MonogameRotoplanet.Systems.Input;
 
-public class InputManager
+public static class InputManager
 {
     private static KeyboardState _currentKeyState;
     private static KeyboardState _previousKeyState;
     private static Dictionary<GameState, Dictionary<InputAction, HashSet<Keys>>> _keyBindings;
 
-    public InputManager(InputConfig config)
+    public static void Init(InputConfig config)
     {
         _keyBindings = config.KeyBindings;
     }
 
-    public void Update()
+    public static void Update()
     {
         _previousKeyState = _currentKeyState;
         _currentKeyState = Keyboard.GetState();

@@ -15,6 +15,11 @@
     <None Remove="Core/Icon.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Configs/**/*.*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Core/Icon.ico">
       <LogicalName>Core/Icon.ico</LogicalName>
     </EmbeddedResource>

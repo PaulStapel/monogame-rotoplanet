@@ -27,39 +27,42 @@ public enum InputAction
     NewGame
 }
 
-
 public class InputConfig
 {
     public Dictionary<GameState, Dictionary<InputAction, HashSet<Keys>>> KeyBindings = new();
 
     public InputConfig()
     {
-        string json = File.ReadAllText("InputConfig");
-        KeyBindings = JsonSerializer.Deserialize<Dictionary<GameState, Dictionary<InputAction, HashSet<Keys>>>>(json);
-        // KeyBindings[GameState.Gameplay] = new Dictionary<InputAction, HashSet<Keys>>
-        // {
-        //     { InputAction.MoveLeft, new HashSet<Keys> {Keys.A, Keys.Left} },
-        //     { InputAction.MoveRight, new HashSet<Keys> {Keys.D, Keys.Right} },
+        string configPath = "Configs/InputConfig.json";
+        string json = File.ReadAllText(configPath);
+        var raw = JsonSerializer.Deserialize<Dictionary<string, Dictionary<string, List<string>>>>(json);
 
-        //     { InputAction.Jump, new HashSet<Keys> {Keys.Space} },
-        // };
+        foreach (var statePair in raw)
+        {
+            if (!Enum.TryParse(statePair.Key, out GameState state))
+                continue;
 
-        // KeyBindings[GameState.Global] = new Dictionary<InputAction, HashSet<Keys>>
-        // {
-        //     { InputAction.Pause, new HashSet<Keys> {Keys.P} }
-        // };
+            var actionDict = new Dictionary<InputAction, HashSet<Keys>>();
 
-        // KeyBindings[GameState.GameOver] = new Dictionary<InputAction, HashSet<Keys>>
-        // {
-        //     { InputAction.NewGame, new HashSet<Keys> {Keys.Enter, Keys.Space} }
-        // };
+            foreach (var actionPair in statePair.Value)
+            {
+                if (!Enum.TryParse(actionPair.Key, out InputAction action))
+                    continue;
 
-        // KeyBindings[GameState.Menu] = new Dictionary<InputAction, HashSet<Keys>>
-        // {
-        //     { InputAction.MoveUp, new HashSet<Keys> {Keys.W, Keys.Up} },
-        //     { InputAction.MoveDown, new HashSet<Keys> {Keys.S, Keys.Down} },
+                var keys = new HashSet<Keys>();
 
-        //     { InputAction.Select, new HashSet<Keys> {Keys.Enter, Keys.Space} },
-        // };
+                foreach (var keyString in actionPair.Value)
+                {
+                    if (Enum.TryParse(keyString, out Keys key))
+                    {
+                        keys.Add(key);
+                    }
+                }
+
+                actionDict[action] = keys;
+            }
+
+            KeyBindings[state] = actionDict;
+        }
     }
 }
